@@ -1,0 +1,67 @@
+html {
+    font-size: 10px;
+    background-size: cover;
+    background-color: #f3f3f3;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+.images{
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;    
+
+}
+
+.image {
+    background-size: cover;
+    background-position: center;
+    flex:1;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    transition: flex 0.7s cubic-bezier(0.6, -0.28, 0.735, 0.045);    
+}
+
+.image-1{
+    background-image: url('../img/adrien-olichon-_kNEgjza0t8-unsplash.jpg');
+}
+.image-2{
+    background-image: url('../img/ave-calvar-ubIZZBMGYVU-unsplash.jpg');
+}
+.image-3{
+    background-image: url('../img/hanson-lu-JO_6maFFeoQ-unsplash.jpg');
+}
+.image-4{
+    background-image: url('../img/nicolas-hans-pFZJ-ko2_Vw-unsplash.jpg');
+}
+.image-5{
+    background-image: url('../img/noah-austin-VPVI8zgJVQo-unsplash.jpg');
+}
+.image-6{
+    background-image: url('../img/robson-hatsukami-morgan-yfp_Z_e3Afs-unsplash.jpg');
+}
+.image-7{
+    background-image: url('../img/tobias-reich-2BVoIAKBi7Q-unsplash.jpg');
+}
+.image-8{
+    background-image: url('../img/zhenyu-luo-73cf3ABLet4-unsplash.jpg');
+}
+.image-9{
+    background-image: url('../img/zoltan-tasi-HQPJEEjHqSE-unsplash.jpg');
+}
+
+
+.image.open{
+    flex: 5;
+}
+
+@media (max-width: 1024px) {
+    
+}
