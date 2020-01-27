@@ -5,8 +5,8 @@ class Candy {
         this.x = x;
         this.y = y;
         this.radius = 50;
-        this.vx = 5;
-        this.vy = 10;
+        this.vx = 1;
+        this.vy = 5;
     }
 
     drawCandy(){
