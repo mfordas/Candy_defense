@@ -14,14 +14,6 @@ class Bug {
         this.color = `hsl(${this.getRandomNumber(0,360)}, 100%, 50%)`;
     }
 
-    setX(x) {
-        this.x = x;
-    }
-
-    setY(y) {
-        this.y = y;
-    }
-
     drawBug() {
         ctx.fillStyle = this.color;
         ctx.beginPath();
@@ -49,18 +41,20 @@ class Bug {
 
 
     setPosition() {
-        let date = new Date();
-        let miliseconds = date.getMilliseconds();
-        console.log(miliseconds % 5);
-
-        if (miliseconds % 7 === 0) {
-            this.getRandomXBugPosition(0, cw);
+        if (this.getRandomNumber(0, 10000) % 5 === 0 || this.getRandomNumber(0, 10000) % 3 === 0 || this.getRandomNumber(0, 10000) % 4 === 0 || this.getRandomNumber(0, 10000) % 2 === 0 || this.getRandomNumber(0, 10000) % 8 === 0) {
+            if (this.getRandomNumber(0, 10000) % 2 === 0) {
+                this.getRandomXBugPosition(0, cw);
+            }
+            if (this.getRandomNumber(0, 10000) % 2 !== 0) {
+                this.y = ch;
+                this.getRandomXBugPosition(0, cw);
+            }
         }
-        if (miliseconds % 7 > 2 && miliseconds % 7 !== 0) {
+        if (this.getRandomNumber(0, 10000) % 7 > 2 && this.getRandomNumber(0, 10000) % 7 !== 0) {
             this.x = 0;
             this.getRandomYBugPosition(0, ch);
         }
-        if (miliseconds % 7 <= 2 && miliseconds % 7 !== 0) {
+        if (this.getRandomNumber(0, 10000) % 7 <= 2 && this.getRandomNumber(0, 10000) % 7 !== 0) {
             this.x = cw;
             this.getRandomYBugPosition(0, ch);
         }
@@ -126,7 +120,7 @@ class Bug {
     }
 
 
-    
+
 }
 
 export default Bug;
