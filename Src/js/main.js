@@ -14,7 +14,7 @@ console.log(ch);
 
 const candy = new Candy(cw / 2, ch / 2);
 const points = new Points(0);
-const levels = new Levels(0,0);
+const levels = new Levels(0, 0, false);
 const health = new Health(100);
 
 let start = false;
@@ -35,9 +35,12 @@ function createArmyOfBugs() {
     }
   }, 3000);
   console.log(bugsArray);
+  if(levels.ready === false){
+    return;
+  }
 }
 
-//Continouse game play
+//Continiuose game play
 
 function gameLoop() {
   ctx.clearRect(0, 0, cw, ch);
@@ -45,20 +48,31 @@ function gameLoop() {
   drawBugs();
   collisionBug();
   infobarDataUpdate();
-  if (levels.time < 0) {
-
-    ++index;
-    start = false;
+  if (levels.levelNumber === 0 && levels.ready === false) {
     levels.setLevelTime(levelsArray[index].time);
     levels.setLevelNumber(levelsArray[index].levelNumber);
-    ctx.clearRect(0, 0, cw, ch);
-    candy.drawCandy();
-    drawBugs();
-    collisionBug();
-    infobarDataUpdate();
-    requestAnimationFrame(gameLoop);
+    console.log(levels.levelNumber);
+    console.log(levels.time);
+    console.log(levels.ready);
+    levels.screenNextLevel();
     return;
   }
+  if (levels.time <= 0 && levels.ready === true) {
+    levels.setLevelReady(false);
+    index = index + 1;
+    console.log("dsadasdsadaas" + index);
+    levels.setLevelTime(levelsArray[index].time);
+    levels.setLevelNumber(levelsArray[index].levelNumber);
+    console.log(levels.levelNumber);
+    console.log(levels.time);
+    console.log(levels.ready);
+    levels.screenNextLevel();
+    return;
+  }
+  // if (levels.ready === true && levels.time > 0){
+  //   nextLevel();
+  //   return;
+  // };
   requestAnimationFrame(gameLoop);
 }
 
@@ -76,6 +90,7 @@ function catchBug(e) {
   console.log(e);
   console.log(bugsArray);
   console.log('works');
+  console.log(index);
 }
 
 // Function for bugs collision
@@ -98,6 +113,21 @@ function drawBugs() {
   });
 }
 
+function nextLevel() {
+  if(levels.ready === true){
+  ctx.clearRect(0, 0, cw, ch);
+  createArmyOfBugs();
+  countLevelTime();
+  console.log('works');
+  requestAnimationFrame(gameLoop);};
+  if(levels.ready === false){
+    console.log('stop');
+    return;
+  }
+  
+}
+
+
 function infobarDataUpdate() {
   document.getElementById('level-number').innerHTML = `${levels.levelNumber}`;
   document.getElementById('health').innerHTML = `${health.health}`;
@@ -105,45 +135,23 @@ function infobarDataUpdate() {
   document.getElementById('time-to-level-end').innerHTML = `${levels.time}`;
 }
 
-// function setLevelTime(time) {
-//   console.log(`Level ${index+1}`)
-//   time = levelsArray[index].time;
-//   console.log(`Level time ${time}`);
-// }
-
-
 function countLevelTime() {
+  if(levels.ready === true){
   setInterval(() => {
     levels.setLevelTime(--levels.time);
     console.log(levels.time);
-  }, 1000);
-
+  }, 1000);} else {
+    return;
+  }
 }
-
-
-// function levelChanger(time) {
-//   if (time = 0 && start === false) {
-//     return setLevelTime(time);
-//   };
-//   if (levels.time > 0 && start === true) {
-//     createArmyOfBugs();
-//   };
-//   if (time < 0 && start === true) {
-//     return start = false;
-//   }
-
-// }
 
 const button = document.getElementById('button')
 canvas.addEventListener('mousedown', catchBug);
-button.addEventListener('mousedown', () => {
-  levels.setLevelTime(levelsArray[index].time);
-  levels.setLevelNumber(levelsArray[index].levelNumber);
-  start = true;
-  console.log('changed');
-  console.log(levels);
-  countLevelTime();
-  createArmyOfBugs();
+button.addEventListener('mousedown', () => levels.setLevelReady(true));
+
+
+canvas.addEventListener('mousedown', () =>  {if (levels.ready === true){
+  nextLevel();} else {return;}
 });
 
 
