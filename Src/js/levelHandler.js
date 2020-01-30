@@ -42,6 +42,7 @@ class Levels {
 
     screenNextLevel(){
         //Level 2
+        ctx.clearRect(0, 0, cw, ch);
         let fontHeight = 50;
         ctx.font = 50 + 'px Visitor';
         let textGameOVer = `Level ${this.levelNumber}!`;

@@ -11,16 +11,32 @@
 </head>
 
 <body>
-    <div class='infobar'>
+    <div class='infobar hide' id='infobar'>
         <div class='infobar-item'>Level number:<span id='level-number'>-</span></div>
         <div class='infobar-item'>Points:<span id='points'>-</span></div>
         <div class='infobar-item'>Health:<span id='health'>-</span></div>
         <div class='infobar-item'>Time to end:<span id='time-to-level-end'>-</span>s</div>
         <button id='button'>Start</button>
     </div>
-    <div class='container'>
+    <div class='container hide' id='container'>
         <canvas style="border: 2px solid black" id="draw" width="800" height="800" class='canvas'></canvas>
     </div>
+    <div class="buttons-container" id="buttons-container">
+        <div class="my-super-cool-btn" id="start">
+          <span>Start!</span>
+        </div>
+        <a href="#" class="my-super-cool-btn" id="settings">
+          <span>Settings</span>
+        </a>
+        <a href="#" class="my-super-cool-btn" id="credits">
+          <span>Credits</span>
+        </a>
+      </div>
+    <div class="buttons-container hide" id="buttons-container-middle-level">
+        <div class="my-super-cool-btn" id="next-level">
+          <span>Next level!</span>
+        </div>
+      </div>
 </body>
 
 </html>

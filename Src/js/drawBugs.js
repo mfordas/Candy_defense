@@ -3,6 +3,10 @@ import {
     ch,
     ctx
 } from './main';
+import bugSrc from '../img/insects/ant.png';
+
+let bug = new Image();
+bug.src = bugSrc;
 
 class Bug {
     constructor(x, y) {
@@ -15,11 +19,15 @@ class Bug {
     }
 
     drawBug() {
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.closePath();
-        ctx.fill();
+        ctx.save();
+        // ctx.rotate(180*Math.PI/180);
+        ctx.drawImage(bug, this.x-(bug.width*0.1/2), this.y-(bug.height*0.1/2), bug.width*0.1, bug.height*0.1);
+        ctx.restore();
+        // ctx.fillStyle = this.color;
+        // ctx.beginPath();
+        // ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        // ctx.closePath();
+        // ctx.fill();
     }
 
     getRandomXBugPosition(min, max) {
@@ -114,9 +122,9 @@ class Bug {
         }
     }
 
-    setVelocityVector(x, y) {
-        this.vy = (y - this.y) / 100;
-        this.vx = (x - this.x) / 100;
+    setVelocityVector(x, y, speedX, speedY) {
+        this.vy = (y - this.y) / speedY;
+        this.vx = (x - this.x) / speedX;
     }
 
 

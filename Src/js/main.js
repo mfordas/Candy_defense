@@ -8,6 +8,7 @@ import Bug from './drawBugs';
 import Points from './pointsControl';
 import Levels from './levelHandler';
 import Health from './healthHandler';
+import * as menu from './menu';
 
 console.log(cw);
 console.log(ch);
@@ -17,25 +18,30 @@ const points = new Points(0);
 const levels = new Levels(0, 0, false);
 const health = new Health(100);
 
+let speedReduceX;
+let speedReduceY;
+let timeCount;
+let bugsCreate;
 let start = false;
 let index = 0;
 let bugsArray = [];
+
 const levelsArray = levels.generateLevels();
 console.table(levelsArray);
 
 
 function createArmyOfBugs() {
-  let amount = 2;
-  setInterval(() => {
+  let amount = 1;
+  bugsCreate = setInterval(() => {
     for (let i = 0; i < amount; i++) {
       let bug = new Bug(0, 0);
       bug.setPosition();
-      bug.setVelocityVector(candy.x, candy.y);
+      bug.setVelocityVector(candy.x, candy.y, speedReduceX, speedReduceY);
       bugsArray.push(bug)
     }
-  }, 3000);
+  }, 1200);
   console.log(bugsArray);
-  if(levels.ready === false){
+  if (levels.ready === false) {
     return;
   }
 }
@@ -43,6 +49,7 @@ function createArmyOfBugs() {
 //Continiuose game play
 
 function gameLoop() {
+
   ctx.clearRect(0, 0, cw, ch);
   candy.drawCandy();
   drawBugs();
@@ -51,14 +58,19 @@ function gameLoop() {
   if (levels.levelNumber === 0 && levels.ready === false) {
     levels.setLevelTime(levelsArray[index].time);
     levels.setLevelNumber(levelsArray[index].levelNumber);
+    speedReduceX = 1200 / (levels.levelNumber * 10);
+    speedReduceY = 1200 / (levels.levelNumber * 10);
     console.log(levels.levelNumber);
     console.log(levels.time);
     console.log(levels.ready);
-    levels.screenNextLevel();
+    // levels.screenNextLevel();
     return;
   }
   if (levels.time <= 0 && levels.ready === true) {
     levels.setLevelReady(false);
+    clearInterval(timeCount);
+    clearInterval(bugsCreate);
+    bugsArray = [];
     index = index + 1;
     console.log("dsadasdsadaas" + index);
     levels.setLevelTime(levelsArray[index].time);
@@ -66,13 +78,11 @@ function gameLoop() {
     console.log(levels.levelNumber);
     console.log(levels.time);
     console.log(levels.ready);
-    levels.screenNextLevel();
+    menu.showMiddleLevel();
+    // levels.screenNextLevel();
     return;
   }
-  // if (levels.ready === true && levels.time > 0){
-  //   nextLevel();
-  //   return;
-  // };
+
   requestAnimationFrame(gameLoop);
 }
 
@@ -114,18 +124,14 @@ function drawBugs() {
 }
 
 function nextLevel() {
-  if(levels.ready === true){
   ctx.clearRect(0, 0, cw, ch);
+  candy.drawCandy();
   createArmyOfBugs();
   countLevelTime();
   console.log('works');
-  requestAnimationFrame(gameLoop);};
-  if(levels.ready === false){
-    console.log('stop');
-    return;
-  }
-  
-}
+  requestAnimationFrame(gameLoop);
+};
+
 
 
 function infobarDataUpdate() {
@@ -136,23 +142,37 @@ function infobarDataUpdate() {
 }
 
 function countLevelTime() {
-  if(levels.ready === true){
-  setInterval(() => {
+  timeCount = setInterval(() => {
     levels.setLevelTime(--levels.time);
     console.log(levels.time);
-  }, 1000);} else {
-    return;
-  }
+  }, 1000);
 }
 
-const button = document.getElementById('button')
+const button = document.getElementById('buttons-container-middle-level');
+const startButton = document.getElementById('start');
 canvas.addEventListener('mousedown', catchBug);
-button.addEventListener('mousedown', () => levels.setLevelReady(true));
-
-
-canvas.addEventListener('mousedown', () =>  {if (levels.ready === true){
-  nextLevel();} else {return;}
+button.addEventListener('mousedown', () => {
+  levels.setLevelReady(true); {
+    if (levels.ready === true) {
+      nextLevel();
+    } else {
+      return;
+    }
+  }
+});
+startButton.addEventListener('mousedown', () => {
+  levels.setLevelReady(true); {
+    if (levels.ready === true) {
+      nextLevel();
+    } else {
+      return;
+    }
+  }
 });
 
+if(menu.ready===false){
+menu.startGame();
+menu.nextLevel();
+menu.setReady(true);}
 
 requestAnimationFrame(gameLoop);
