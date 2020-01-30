@@ -40,21 +40,6 @@ class Levels {
         return this.time;} else {return true}
     }
 
-    screenNextLevel(){
-        //Level 2
-        ctx.clearRect(0, 0, cw, ch);
-        let fontHeight = 50;
-        ctx.font = 50 + 'px Visitor';
-        let textGameOVer = `Level ${this.levelNumber}!`;
-        let textGameOverSize = ctx.measureText(textGameOVer);
-        ctx.fillText(textGameOVer, cw / 2 - textGameOverSize.width / 2, ch / 2);
-        //Press Space to move to next level
-        ctx.font = '20px Visitor';
-        let textPressSpace = 'Press Space to start';
-        let textPressSpaceSize = ctx.measureText(textPressSpace);
-        ctx.fillText(textPressSpace, cw / 2 - textPressSpaceSize.width / 2, ch / 2 + fontHeight / 1.5);
-      };
-
 }
 
 export default Levels;

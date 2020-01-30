@@ -22,7 +22,6 @@ let speedReduceX;
 let speedReduceY;
 let timeCount;
 let bugsCreate;
-let start = false;
 let index = 0;
 let bugsArray = [];
 
@@ -46,10 +45,8 @@ function createArmyOfBugs() {
   }
 }
 
-//Continiuose game play
-
+//Continuous game play
 function gameLoop() {
-
   ctx.clearRect(0, 0, cw, ch);
   candy.drawCandy();
   drawBugs();
@@ -63,7 +60,6 @@ function gameLoop() {
     console.log(levels.levelNumber);
     console.log(levels.time);
     console.log(levels.ready);
-    // levels.screenNextLevel();
     return;
   }
   if (levels.time <= 0 && levels.ready === true) {
@@ -79,7 +75,6 @@ function gameLoop() {
     console.log(levels.time);
     console.log(levels.ready);
     menu.showMiddleLevel();
-    // levels.screenNextLevel();
     return;
   }
 
@@ -119,7 +114,8 @@ function collisionBug() {
 function drawBugs() {
   bugsArray.forEach(bug => {
     bug.drawBug();
-    bug.moveOfBug(candy.x, candy.y, candy.radius);
+    bug.moveOfBug();
+    
   });
 }
 
@@ -148,7 +144,7 @@ function countLevelTime() {
   }, 1000);
 }
 
-const button = document.getElementById('buttons-container-middle-level');
+const button = document.getElementById('next-level');
 const startButton = document.getElementById('start');
 canvas.addEventListener('mousedown', catchBug);
 button.addEventListener('mousedown', () => {

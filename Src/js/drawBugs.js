@@ -3,7 +3,7 @@ import {
     ch,
     ctx
 } from './main';
-import bugSrc from '../img/insects/ant.png';
+import bugSrc from '../img/insects/ant_2.png';
 
 let bug = new Image();
 bug.src = bugSrc;
@@ -20,14 +20,12 @@ class Bug {
 
     drawBug() {
         ctx.save();
-        // ctx.rotate(180*Math.PI/180);
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.setRotationAngle());
+        ctx.translate(-this.x, -this.y);
         ctx.drawImage(bug, this.x-(bug.width*0.1/2), this.y-(bug.height*0.1/2), bug.width*0.1, bug.height*0.1);
         ctx.restore();
-        // ctx.fillStyle = this.color;
-        // ctx.beginPath();
-        // ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        // ctx.closePath();
-        // ctx.fill();
+        
     }
 
     getRandomXBugPosition(min, max) {
@@ -70,50 +68,10 @@ class Bug {
 
     }
 
-    moveOfBug(x, y, r) {
+    moveOfBug() {
         this.x += this.vx;
         this.y += this.vy;
-        this.velocityDirectionChange(x, y, r);
 
-    }
-
-    velocityDirectionChange(x, y, r) {
-        if (this.y + this.vy > ch || this.y + this.vy < 0) {
-            this.vy = -this.vy;
-        }
-        if (this.x + this.vx > cw || this.x + this.vx < 0) {
-            this.vx = -this.vx;
-        }
-
-        if (Math.sqrt((x - this.x) ** 2 + (y - this.y) ** 2) <= (this.radius + r)) {
-            if (y - this.y >= 0 && x - this.x >= 0) {
-                this.vy = -this.vy;
-            }
-            if (y - this.y >= 0 && x - this.x >= 0) {
-                this.vx = -this.vx;
-            }
-            if (y - this.y < 0 && x - this.x >= 0) {
-                this.vy = -this.vy;
-            }
-            if (y - this.y < 0 && x - this.x >= 0) {
-                this.vx = -this.vx;
-            }
-            if (y - this.y >= 0 && x - this.x < 0) {
-                this.vy = -this.vy;
-            }
-            if (y - this.y >= 0 && x - this.x < 0) {
-                this.vx = -this.vx;
-            }
-            if (y - this.y < 0 && x - this.x < 0) {
-                this.vy = -this.vy;
-            }
-            if (y - this.y < 0 && x - this.x < 0) {
-                this.vx = -this.vx;
-            }
-
-
-
-        }
     }
 
     deleteBug(x, y, r) {
@@ -127,6 +85,20 @@ class Bug {
         this.vx = (x - this.x) / speedX;
     }
 
+    setRotationAngle(){
+        if (this.vx >= 0 && this.vy >= 0){
+        return (90*Math.PI/180)+(Math.atan(Math.tan(this.vy/this.vx)))
+    }
+        if (this.vx >= 0 && this.vy <= 0){
+        return (90*Math.PI/180)+(Math.atan(Math.tan(this.vy/this.vx)))
+    }
+        if (this.vx <= 0 && this.vy >= 0){
+        return (270*Math.PI/180)+(Math.atan(Math.tan(this.vy/this.vx)))
+    }
+        if (this.vx <= 0 && this.vy <= 0){
+        return (270*Math.PI/180)+(Math.atan(Math.tan(this.vy/this.vx)))
+    }
+}
 
 
 }
