@@ -13,9 +13,9 @@ class Levels {
 
     
 
-    generateLevels(){
+    generateLevels(numberOfLevels){
         let levelArray = [];
-        for (let i=1; i<=10; i++){
+        for (let i=1; i<=numberOfLevels; i++){
             let newLevel = new Levels(i, i*10, false);
             levelArray.push(newLevel);
         }

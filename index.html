@@ -20,27 +20,58 @@
     <div class='infobar hide' id='infobar2'>
         <div class='infobar-item'><span id='level-number'>-</span></div>
         <div class='infobar-item'><span id='points'>-</span></div>
-        <div class='infobar-item'><span id='health'>-</span></div>
+        <div class='infobar-item health'><div id="health-level"><span id='health'>-</span></div></div>
         <div class='infobar-item'><span id='time-to-level-end'>-</span> s</div>
     </div>
     <div class='container hide' id='container'>
         <canvas style="border: 2px solid black" id="draw" width="800" height="800" class='canvas'></canvas>
     </div>
     <div class="buttons-container" id="buttons-container">
-        <div class="my-super-cool-btn" id="start">
+        <div class="logo">
+          <span>Candy</span><br>
+          <span>defense</span>
+        </div>
+        <div class="custom-button" id="start">
           <span>Start!</span>
         </div>
-        <a href="#" class="my-super-cool-btn" id="settings">
+        <div class="custom-button" id="settings">
           <span>Settings</span>
-        </a>
-        <a href="#" class="my-super-cool-btn" id="credits">
+        </div>
+        <div class="custom-button" id="credits">
           <span>Credits</span>
-        </a>
-      </div>
+        </div>
+    </div>
     <div class="buttons-container hide" id="buttons-container-middle-level">
-        <div class="my-super-cool-btn" id="next-level">
+        <div class="custom-button" id="next-level">
           <span>Next level!</span>
         </div>
+      </div>
+      <div class="settings-container hide" id="settings-container">
+        <div class="settings-item">
+          <div>Player name</div>
+          <div class="input"><input id="player-name" type="text" value="Player"></input></div>
+        </div>
+        <div class="settings-item">
+          <div>Number of levels</div>
+          <div style="font-size: 1rem;">Type number from 1 to 15</div>
+          <div class="input"><input id="number-of-levels" type="number" min="1" max="15" value="10"></input></div>
+        </div>
+        <div class="settings-item-small" id="save-settings">
+          <span>Save</span>
+        </div>
+
+      </div>
+      <div class="settings-container hide" id="credits-container">
+        <div class="settings-item">
+          <div>Game was created in VanillaJS.I use Webpack and Babel to fit app for different browsers.</div>
+        </div>
+        <div class="settings-item">
+          <div>All Icons are made by Freepik from www.flaticon.com</div>
+        </div>
+        <div class="settings-item-small" id="back-to-main-menu">
+          <span>Back</span>
+        </div>
+
       </div>
 </body>
 

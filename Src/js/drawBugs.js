@@ -15,6 +15,7 @@ class Bug {
         this.radius = 15;
         this.vx = 0;
         this.vy = 0;
+        this.angle = 0;
         this.color = `hsl(${this.getRandomNumber(0,360)}, 100%, 50%)`;
     }
 
@@ -86,18 +87,21 @@ class Bug {
     }
 
     setRotationAngle(){
-        if (this.vx >= 0 && this.vy >= 0){
-        return (90*Math.PI/180)+(Math.atan(Math.tan(this.vy/this.vx)))
+        
+        if (this.vx > 0 && this.vy > 0){
+            this.angle = (90*Math.PI/180)+(Math.atan(Math.tan(this.vy/this.vx)));
     }
-        if (this.vx >= 0 && this.vy <= 0){
-        return (90*Math.PI/180)+(Math.atan(Math.tan(this.vy/this.vx)))
+        if (this.vx > 0 && this.vy < 0){
+            this.angle = (90*Math.PI/180)-(Math.abs(Math.atan(Math.tan(this.vy/this.vx))));
     }
-        if (this.vx <= 0 && this.vy >= 0){
-        return (270*Math.PI/180)+(Math.atan(Math.tan(this.vy/this.vx)))
+        if (this.vx < 0 && this.vy > 0){
+            this.angle = (270*Math.PI/180)+(Math.atan(Math.tan(this.vy/this.vx)));
     }
-        if (this.vx <= 0 && this.vy <= 0){
-        return (270*Math.PI/180)+(Math.atan(Math.tan(this.vy/this.vx)))
+        if (this.vx < 0 && this.vy < 0){
+            this.angle = (270*Math.PI/180)+(Math.abs(Math.atan(Math.tan(this.vy/this.vx))));
     }
+
+    return this.angle;
 }
 
 

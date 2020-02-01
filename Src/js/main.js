@@ -24,9 +24,11 @@ let timeCount;
 let bugsCreate;
 let index = 0;
 let bugsArray = [];
+let levelsArray = [];
 
-const levelsArray = levels.generateLevels();
+levelsArray = levels.generateLevels(menu.numberOfLevels);
 console.table(levelsArray);
+
 
 
 function createArmyOfBugs() {
@@ -55,8 +57,10 @@ function gameLoop() {
   if (levels.levelNumber === 0 && levels.ready === false) {
     levels.setLevelTime(levelsArray[index].time);
     levels.setLevelNumber(levelsArray[index].levelNumber);
-    speedReduceX = 1200 / (levels.levelNumber * 10);
-    speedReduceY = 1200 / (levels.levelNumber * 10);
+    speedReduceX = 120 - (levels.levelNumber * 10);
+    speedReduceY = 120 - (levels.levelNumber * 10);
+    console.log(speedReduceX);
+    console.log(speedReduceY);
     console.log(levels.levelNumber);
     console.log(levels.time);
     console.log(levels.ready);
@@ -71,6 +75,10 @@ function gameLoop() {
     console.log("dsadasdsadaas" + index);
     levels.setLevelTime(levelsArray[index].time);
     levels.setLevelNumber(levelsArray[index].levelNumber);
+    speedReduceX = 120 - (levels.levelNumber * 10);
+    speedReduceY = 120 - (levels.levelNumber * 10);
+    console.log(speedReduceX);
+    console.log(speedReduceY);
     console.log(levels.levelNumber);
     console.log(levels.time);
     console.log(levels.ready);
@@ -169,6 +177,9 @@ startButton.addEventListener('mousedown', () => {
 if(menu.ready===false){
 menu.startGame();
 menu.nextLevel();
-menu.setReady(true);}
+menu.settings();
+menu.credits();
+menu.backToMainMenu();
+menu.saveSettings();}
 
 requestAnimationFrame(gameLoop);
