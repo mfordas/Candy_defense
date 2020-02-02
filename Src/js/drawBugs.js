@@ -70,7 +70,7 @@ class Bug {
     }
 
     moveOfBug() {
-        this.x += this.vx;
+        this.x += (this.vx);
         this.y += this.vy;
 
     }
@@ -81,8 +81,8 @@ class Bug {
         }
     }
 
-    setVelocityVector(x, y, levelNumber) {
-        let valueOfVelocity = 4;
+    setVelocityVector(x, y) {
+        let valueOfVelocity = 3.5;
 
         // Basic values of X speed and Y speed
         let basicYVelocity = (y - this.y);

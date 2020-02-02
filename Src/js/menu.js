@@ -69,6 +69,18 @@ function gameover() {
         infobar2.classList.add('hide');
         container.classList.add('hide');
         gameoverCont.classList.remove('hide');
+        // setSettingsReady(false);
+        // setReady(false);
+}
+function tryAgain() {
+    document.getElementById('try-again').addEventListener('mousedown', () => {
+        infobar.classList.remove('hide');
+        infobar2.classList.remove('hide');
+        container.classList.remove('hide');
+        gameoverCont.classList.add('hide');
+        // setSettingsReady(true);
+        // setReady(true);
+    });
 }
 function backToMainMenu() {
     document.getElementById('back-to-main-menu').addEventListener('mousedown', () => {
@@ -104,5 +116,6 @@ export {
     settingsReady,
     numberOfLevels,
     setSettingsReady,
-    gameover
+    gameover,
+    tryAgain
 };

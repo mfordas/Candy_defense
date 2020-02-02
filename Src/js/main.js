@@ -29,7 +29,7 @@ function createArmyOfBugs() {
     for (let i = 0; i < amount; i++) {
       let bug = new Bug(0, 0);
       bug.setPosition();
-      bug.setVelocityVector(candy.x, candy.y, levels.levelNumber);
+      bug.setVelocityVector(candy.x, candy.y);
       bugsArray.push(bug)
     }
   }, 1300-(levels.levelNumber*100));
@@ -71,8 +71,7 @@ function gameLoop() {
     levels.setLevelNumber(levelsArray[index].levelNumber);
     menu.gameover();
     health.healthReload();
-    levels.setLevelReady(false);
-    menu.setReady(false);
+    menu.tryAgain();
     return;
   }
 
@@ -138,6 +137,7 @@ function countLevelTime() {
 
 const button = document.getElementById('next-level');
 const startButton = document.getElementById('start');
+const tryAgain = document.getElementById('try-again');
 canvas.addEventListener('mousedown', catchBug);
 canvas.addEventListener('click', catchBug);
 button.addEventListener('mousedown', () => {
@@ -149,7 +149,18 @@ button.addEventListener('mousedown', () => {
     }
   }
 });
+
 startButton.addEventListener('mousedown', () => {
+  levels.setLevelReady(true); {
+    if (levels.ready === true) {
+      nextLevel();
+    } else {
+      return;
+    }
+  }
+});
+
+tryAgain.addEventListener('mousedown', () => {
   levels.setLevelReady(true); {
     if (levels.ready === true) {
       nextLevel();
@@ -164,6 +175,7 @@ menu.startGame();
 menu.nextLevel();
 menu.settings();
 menu.credits();
+menu.tryAgain();
 menu.backToMainMenu();
 menu.backToMainMenu2();
 menu.saveSettings();
