@@ -6,7 +6,11 @@ class Health {
     
 
     healthReload(){
-        return this.health = 100;
+        this.health = 100;
+        const healthBar = document.getElementById('health-level');
+        healthBar.style.width = `${this.health}%`;
+        healthBar.style.backgroundColor = `#02e30e`;
+        return this.health;
     }
 
     

@@ -81,24 +81,36 @@ class Bug {
         }
     }
 
-    setVelocityVector(x, y, speedX, speedY) {
-        this.vy = (y - this.y) / speedY;
-        this.vx = (x - this.x) / speedX;
+    setVelocityVector(x, y, levelNumber) {
+        let valueOfVelocity = 4;
+
+        // Basic values of X speed and Y speed
+        let basicYVelocity = (y - this.y);
+        let basicXVelocity = (x - this.x);
+
+        let multiplier = Math.abs(basicXVelocity/basicYVelocity);
+
+        this.vy = valueOfVelocity/Math.sqrt((multiplier**2)+1);
+        this.vx = this.vy*multiplier;
+
+        basicXVelocity > 0 ? this.vx=this.vx : this.vx=-this.vx;
+        basicYVelocity > 0 ? this.vy=this.vy : this.vy=-this.vy;
+
     }
 
     setRotationAngle(){
         
         if (this.vx > 0 && this.vy > 0){
-            this.angle = (90*Math.PI/180)+(Math.atan(Math.tan(this.vy/this.vx)));
+            this.angle = (180*Math.PI/180)-(Math.atan((Math.abs(this.vx/this.vy))));
     }
         if (this.vx > 0 && this.vy < 0){
-            this.angle = (90*Math.PI/180)-(Math.abs(Math.atan(Math.tan(this.vy/this.vx))));
+            this.angle = (90*Math.PI/180)-(Math.abs(Math.atan((this.vy/this.vx))));
     }
         if (this.vx < 0 && this.vy > 0){
-            this.angle = (270*Math.PI/180)+(Math.atan(Math.tan(this.vy/this.vx)));
+            this.angle = (270*Math.PI/180)+(Math.atan((this.vy/this.vx)));
     }
         if (this.vx < 0 && this.vy < 0){
-            this.angle = (270*Math.PI/180)+(Math.abs(Math.atan(Math.tan(this.vy/this.vx))));
+            this.angle = (270*Math.PI/180)+(Math.abs(Math.atan((this.vy/this.vx))));
     }
 
     return this.angle;

@@ -5,6 +5,7 @@ const buttonsCont = document.getElementById('buttons-container');
 const buttonsContMiddleLevel = document.getElementById('buttons-container-middle-level');
 const settingsCont = document.getElementById('settings-container');
 const creditsCont = document.getElementById('credits-container');
+const gameoverCont = document.getElementById('gameover-container');
 let ready = false;
 let settingsReady = false;
 let numberOfLevels = 10;
@@ -15,7 +16,7 @@ function startGame() {
         infobar.classList.remove('hide');
         infobar2.classList.remove('hide');
         container.classList.remove('hide');
-        buttonsCont.style.display = 'none';
+        buttonsCont.classList.add('hide');
         setSettingsReady(true);
         setReady(true);
     });
@@ -51,10 +52,7 @@ function saveSettings() {
     document.getElementById('save-settings').addEventListener('mousedown', () => {
         playerName = document.getElementById('player-name').value;
         numberOfLevels = document.getElementById('number-of-levels').value;
-        console.log(playerName);
-        console.log(numberOfLevels);
         setSettingsReady(true);
-        console.log(settingsReady);
         settingsCont.classList.add('hide');
         buttonsCont.classList.remove('hide');
     });
@@ -65,11 +63,24 @@ function credits() {
         creditsCont.classList.remove('hide');
     });
 }
+function gameover() {
+        console.log('gameover');
+        infobar.classList.add('hide');
+        infobar2.classList.add('hide');
+        container.classList.add('hide');
+        gameoverCont.classList.remove('hide');
+}
 function backToMainMenu() {
     document.getElementById('back-to-main-menu').addEventListener('mousedown', () => {
         buttonsCont.classList.remove('hide');
         creditsCont.classList.add('hide');
-        
+        gameoverCont.classList.add('hide');
+    });
+}
+function backToMainMenu2() {
+    document.getElementById('back-to-main-menu2').addEventListener('mousedown', () => {
+        buttonsCont.classList.remove('hide');
+        gameoverCont.classList.add('hide');
     });
 }
 
@@ -89,7 +100,9 @@ export {
     saveSettings,
     credits,
     backToMainMenu,
+    backToMainMenu2,
     settingsReady,
     numberOfLevels,
-    setSettingsReady
+    setSettingsReady,
+    gameover
 };

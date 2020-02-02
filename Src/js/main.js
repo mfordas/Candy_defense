@@ -10,16 +10,11 @@ import Levels from './levelHandler';
 import Health from './healthHandler';
 import * as menu from './menu';
 
-console.log(cw);
-console.log(ch);
-
 const candy = new Candy(cw / 2, ch / 2);
 const points = new Points(0);
 const levels = new Levels(0, 0, false);
 const health = new Health(100);
 
-let speedReduceX;
-let speedReduceY;
 let timeCount;
 let bugsCreate;
 let index = 0;
@@ -27,9 +22,6 @@ let bugsArray = [];
 let levelsArray = [];
 
 levelsArray = levels.generateLevels(menu.numberOfLevels);
-console.table(levelsArray);
-
-
 
 function createArmyOfBugs() {
   let amount = 1;
@@ -37,11 +29,10 @@ function createArmyOfBugs() {
     for (let i = 0; i < amount; i++) {
       let bug = new Bug(0, 0);
       bug.setPosition();
-      bug.setVelocityVector(candy.x, candy.y, speedReduceX, speedReduceY);
+      bug.setVelocityVector(candy.x, candy.y, levels.levelNumber);
       bugsArray.push(bug)
     }
-  }, 1200);
-  console.log(bugsArray);
+  }, 1300-(levels.levelNumber*100));
   if (levels.ready === false) {
     return;
   }
@@ -57,32 +48,31 @@ function gameLoop() {
   if (levels.levelNumber === 0 && levels.ready === false) {
     levels.setLevelTime(levelsArray[index].time);
     levels.setLevelNumber(levelsArray[index].levelNumber);
-    speedReduceX = 120 - (levels.levelNumber * 10);
-    speedReduceY = 120 - (levels.levelNumber * 10);
-    console.log(speedReduceX);
-    console.log(speedReduceY);
-    console.log(levels.levelNumber);
-    console.log(levels.time);
-    console.log(levels.ready);
     return;
   }
-  if (levels.time <= 0 && levels.ready === true) {
+  if (levels.time <= 0 && levels.ready === true && health.health > 0) {
     levels.setLevelReady(false);
     clearInterval(timeCount);
     clearInterval(bugsCreate);
     bugsArray = [];
     index = index + 1;
-    console.log("dsadasdsadaas" + index);
     levels.setLevelTime(levelsArray[index].time);
     levels.setLevelNumber(levelsArray[index].levelNumber);
-    speedReduceX = 120 - (levels.levelNumber * 10);
-    speedReduceY = 120 - (levels.levelNumber * 10);
-    console.log(speedReduceX);
-    console.log(speedReduceY);
-    console.log(levels.levelNumber);
-    console.log(levels.time);
-    console.log(levels.ready);
     menu.showMiddleLevel();
+    return;
+  }
+
+  if(health.health <= 0 && levels.ready === true){
+    clearInterval(timeCount);
+    clearInterval(bugsCreate);
+    bugsArray = [];
+    index = 0;
+    levels.setLevelTime(levelsArray[index].time);
+    levels.setLevelNumber(levelsArray[index].levelNumber);
+    menu.gameover();
+    health.healthReload();
+    levels.setLevelReady(false);
+    menu.setReady(false);
     return;
   }
 
@@ -92,7 +82,7 @@ function gameLoop() {
 // Function for catching bugs
 function catchBug(e) {
   bugsArray.forEach(bug => {
-    bug.deleteBug(e.offsetX, e.offsetY, 15);
+    bug.deleteBug(e.offsetX, e.offsetY, 50);
   });
   bugsArray.forEach(bug => {
     if (bug.radius === 0) {
@@ -100,10 +90,6 @@ function catchBug(e) {
       points.countPoints();
     }
   });
-  console.log(e);
-  console.log(bugsArray);
-  console.log('works');
-  console.log(index);
 }
 
 // Function for bugs collision
@@ -132,7 +118,6 @@ function nextLevel() {
   candy.drawCandy();
   createArmyOfBugs();
   countLevelTime();
-  console.log('works');
   requestAnimationFrame(gameLoop);
 };
 
@@ -148,13 +133,13 @@ function infobarDataUpdate() {
 function countLevelTime() {
   timeCount = setInterval(() => {
     levels.setLevelTime(--levels.time);
-    console.log(levels.time);
   }, 1000);
 }
 
 const button = document.getElementById('next-level');
 const startButton = document.getElementById('start');
 canvas.addEventListener('mousedown', catchBug);
+canvas.addEventListener('click', catchBug);
 button.addEventListener('mousedown', () => {
   levels.setLevelReady(true); {
     if (levels.ready === true) {
@@ -180,6 +165,27 @@ menu.nextLevel();
 menu.settings();
 menu.credits();
 menu.backToMainMenu();
-menu.saveSettings();}
+menu.backToMainMenu2();
+menu.saveSettings();
+}
+
+/*This function will load script and call the callback once the script has loaded*/
+function loadScriptAsync(scriptSrc, callback) {
+  if (typeof callback !== 'function') {
+      throw new Error('Not a valid callback for async script load');
+  }
+  var script = document.createElement('script');
+  script.onload = callback;
+  script.src = scriptSrc;
+  document.head.appendChild(script);
+}
+
+/* This is the part where you call the above defined function and "call back" your code which gets executed after the script has loaded */
+loadScriptAsync('https://www.googletagmanager.com/gtag/js?id=UA-149871373-1', function(){
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-149871373-1');
+})
 
 requestAnimationFrame(gameLoop);

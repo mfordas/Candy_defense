@@ -1,10 +1,11 @@
 const path = require("path");
 
+
 module.exports = {
   mode: 'development',
   entry: './src/js/main.js',
   output: {
-    path: path.resolve(__dirname),
+    path: path.resolve('./Dist/js'),
     filename: 'index.js',
   },
     devtool: "source-map",
@@ -15,20 +16,26 @@ module.exports = {
         rules: [
             {
                 test: /\.(js)$/,
-                loaders: ['babel-loader'],
+                loader: 'babel-loader',
                 exclude: /node_modules/,
+                options: {
+                  presets: ['@babel/preset-env']
+                },
               },
               {
                 test: /\.(png|jpe?g|gif)$/i,
-                use: [
-                  {
-                    loader: 'file-loader',
+                loader: 'file-loader',
+                options: {
+                    outputPath: './Dist/img',
                   },
-                ],
               },
               {
-                test: /\.mp3$/i,
-                loader: 'file-loader'
+                test: /\.html$/i,
+                loader: 'html-loader',
+                options: {
+                  minimize: true,
+                  // outputPath: './Dist/html',
+                },
               }
             ]
     }
