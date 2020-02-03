@@ -89,6 +89,8 @@ function tryAgain2() {
 
 function backToMainMenu() {
     document.getElementById('back-to-main-menu').addEventListener('mousedown', () => {
+        infobar.classList.add('hide');
+        infobar2.classList.add('hide');
         buttonsCont.classList.remove('hide');
         creditsCont.classList.add('hide');
         gameoverCont.classList.add('hide');
@@ -96,12 +98,16 @@ function backToMainMenu() {
 }
 function backToMainMenu2() {
     document.getElementById('back-to-main-menu2').addEventListener('mousedown', () => {
+        infobar.classList.add('hide');
+        infobar2.classList.add('hide');
         buttonsCont.classList.remove('hide');
         gameoverCont.classList.add('hide');
     });
 }
 function backToMainMenu3() {
     document.getElementById('back-to-main-menu3').addEventListener('mousedown', () => {
+        infobar.classList.add('hide');
+        infobar2.classList.add('hide');
         buttonsCont.classList.remove('hide');
         finishCont.classList.add('hide');
     });
