@@ -1,7 +1,9 @@
 const path = require("path");
+const glob = require("glob");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const PurifyCSSPlugin = require('purifycss-webpack');
 
 module.exports = {
   mode: 'development',
@@ -13,6 +15,11 @@ module.exports = {
     devtool: "source-map",
     resolve: {
       extensions: ['.js'],
+    },
+    devServer: {
+      contentBase: path.join(__dirname, 'dist'),
+      compress: true,
+      port: 8080
     },
     module: {
         rules: [
@@ -41,10 +48,19 @@ module.exports = {
     plugins: [
       new HtmlWebpackPlugin({
         filename: 'index.html',
-        template: 'index.html'
+        template: './src/index.html'
       }),
       new ExtractTextPlugin({
         filename: 'index.css'
+      }),
+      new OptimizeCssAssetsPlugin({
+        assetNameRegExp: /\.css$/g,
+        cssProcessor: require('cssnano'),
+        cssProcessorOptions: {discardComments: {removeAll: true}},
+        canPrint: true
+      }),
+      new PurifyCSSPlugin({
+        paths: glob.sync(path.resolve(__dirname, 'src/*.html')),
       })
     ]
 }

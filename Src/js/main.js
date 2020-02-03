@@ -24,7 +24,6 @@ let bugsArray = [];
 let levelsArray = [];
 
 levelsArray = levels.generateLevels(menu.numberOfLevels);
-console.table(levelsArray);
 
 //Continuous game play
 function gameLoop() {
@@ -218,7 +217,6 @@ if (menu.ready === false) {
 document.getElementById('save-settings').addEventListener('mousedown', () => {
   if (menu.getSettingsReady() === true) {
     levelsArray = [...levels.generateLevels(menu.numberOfLevels)];
-    console.table(levelsArray);
   }
 });
 
