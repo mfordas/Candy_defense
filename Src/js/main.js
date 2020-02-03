@@ -5,15 +5,18 @@ export const ch = canvas.height = window.innerHeight - 55;
 
 import Candy from './drawCandy';
 import Bug from './drawBugs';
+import Blood from './drawBlood';
 import Points from './pointsControl';
 import Levels from './levelHandler';
 import Health from './healthHandler';
 import * as menu from './menu';
+import * as google from './google_analytics';
 
 const candy = new Candy(cw / 2, ch / 2);
 const points = new Points(0);
 const levels = new Levels(0, 0, false);
 const health = new Health(100);
+const blood = new Blood();
 
 let bugsCreate;
 let index = 0;
@@ -27,6 +30,7 @@ console.table(levelsArray);
 function gameLoop() {
   ctx.clearRect(0, 0, cw, ch);
   candy.drawCandy();
+  blood.drawBlood();
   drawBugs();
   collisionBug();
   infobarDataUpdate();
@@ -40,6 +44,8 @@ function gameLoop() {
     levels.stopCountLevelTime();
     clearInterval(bugsCreate);
     bugsArray = [];
+    blood.setY();
+    blood.setX();
     index = index + 1;
     if (levelsArray.length > index) {
       levels.setLevelTime(levelsArray[index].time);
@@ -99,6 +105,8 @@ function catchBug(e) {
     if (bug.radius === 0) {
       bugsArray.splice(bugsArray.indexOf(bug), 1);
       points.countPoints();
+      blood.setX(e.offsetX);
+      blood.setY(e.offsetY);
     }
   });
 }
@@ -121,7 +129,8 @@ function drawBugs() {
   bugsArray.forEach(bug => {
     bug.drawBug();
     bug.moveOfBug();
-
+    blood.setY();
+    blood.setX();
   });
 }
 
@@ -213,27 +222,5 @@ document.getElementById('save-settings').addEventListener('mousedown', () => {
   }
 });
 
-
-/*This function will load script and call the callback once the script has loaded*/
-function loadScriptAsync(scriptSrc, callback) {
-  if (typeof callback !== 'function') {
-    throw new Error('Not a valid callback for async script load');
-  }
-  var script = document.createElement('script');
-  script.onload = callback;
-  script.src = scriptSrc;
-  document.head.appendChild(script);
-}
-
-/* This is the part where you call the above defined function and "call back" your code which gets executed after the script has loaded */
-loadScriptAsync('https://www.googletagmanager.com/gtag/js?id=UA-149871373-1', function () {
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag('js', new Date());
-  gtag('config', 'UA-149871373-1');
-})
-
+google.loadScriptAsync();
 requestAnimationFrame(gameLoop);

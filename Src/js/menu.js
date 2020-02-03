@@ -24,8 +24,6 @@ function startGame() {
 }
 
 function showMiddleLevel() {
-        // infobar.classList.add('hide');
-        // infobar2.classList.add('hide');
         container.classList.add('hide');
         buttonsContMiddleLevel.classList.remove('hide');
         ready = false
@@ -34,8 +32,6 @@ function showMiddleLevel() {
 
 function nextLevel() {
     document.getElementById('next-level').addEventListener('mousedown', () => {
-        // infobar.classList.remove('hide');
-        // infobar2.classList.remove('hide');
         container.classList.remove('hide');
         buttonsContMiddleLevel.classList.add('hide');
         ready = true
@@ -68,23 +64,17 @@ function credits() {
 }
 
 function gameover() {
-        // infobar.classList.add('hide');
-        // infobar2.classList.add('hide');
         container.classList.add('hide');
         gameoverCont.classList.remove('hide');
 }
 
 function finish() {
-        // infobar.classList.add('hide');
-        // infobar2.classList.add('hide');
         container.classList.add('hide');
         finishCont.classList.remove('hide');
 }
 
 function tryAgain() {
     document.getElementById('try-again').addEventListener('mousedown', () => {
-        // infobar.classList.remove('hide');
-        // infobar2.classList.remove('hide');
         container.classList.remove('hide');
         gameoverCont.classList.add('hide');
     });
@@ -92,8 +82,6 @@ function tryAgain() {
 
 function tryAgain2() {
     document.getElementById('try-again2').addEventListener('mousedown', () => {
-        // infobar.classList.remove('hide');
-        // infobar2.classList.remove('hide');
         container.classList.remove('hide');
         finishCont.classList.add('hide');
     });
