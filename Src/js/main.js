@@ -2,7 +2,7 @@ export const canvas = document.querySelector('#draw');
 export const ctx = canvas.getContext('2d');
 export const cw = canvas.width = window.innerWidth - 5;
 export const ch = canvas.height = window.innerHeight - 55;
-
+import '../css/main.css';
 import Candy from './drawCandy';
 import Bug from './drawBugs';
 import Blood from './drawBlood';
