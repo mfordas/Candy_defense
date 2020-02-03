@@ -4,6 +4,8 @@ import {
     ctx
 } from './main';
 
+let timeCount;
+
 class Levels {
     constructor (levelNumber, time, ready){
             this.levelNumber =levelNumber,
@@ -36,6 +38,16 @@ class Levels {
         if(this.time > 0){
         setInterval(() => this.time = --this.time, 1000);
         return this.time;} else {return true}
+    }
+
+    countLevelTime() {
+        timeCount = setInterval(() => {
+          this.setLevelTime(--this.time);
+        }, 1000);
+      }
+
+      stopCountLevelTime (){
+      clearInterval(timeCount);
     }
 
 }

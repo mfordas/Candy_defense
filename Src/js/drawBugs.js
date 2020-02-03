@@ -12,7 +12,7 @@ class Bug {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.radius = 15;
+        this.radius = 25;
         this.vx = 0;
         this.vy = 0;
         this.angle = 0;
@@ -26,7 +26,6 @@ class Bug {
         ctx.translate(-this.x, -this.y);
         ctx.drawImage(bug, this.x-(bug.width*0.1/2), this.y-(bug.height*0.1/2), bug.width*0.1, bug.height*0.1);
         ctx.restore();
-        
     }
 
     getRandomXBugPosition(min, max) {
