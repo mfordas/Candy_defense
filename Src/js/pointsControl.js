@@ -5,7 +5,11 @@ class Points {
     }
 
     countPoints(){
-        this.point = this.points++;
+        return this.points++;
+    }
+
+    resetPoints(){
+        return this.points = 0;
     }
 
 

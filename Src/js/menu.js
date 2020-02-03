@@ -6,6 +6,7 @@ const buttonsContMiddleLevel = document.getElementById('buttons-container-middle
 const settingsCont = document.getElementById('settings-container');
 const creditsCont = document.getElementById('credits-container');
 const gameoverCont = document.getElementById('gameover-container');
+const finishCont = document.getElementById('finish-container');
 let ready = false;
 let settingsReady = false;
 let numberOfLevels = 10;
@@ -23,8 +24,8 @@ function startGame() {
 }
 
 function showMiddleLevel() {
-        infobar.classList.add('hide');
-        infobar2.classList.add('hide');
+        // infobar.classList.add('hide');
+        // infobar2.classList.add('hide');
         container.classList.add('hide');
         buttonsContMiddleLevel.classList.remove('hide');
         ready = false
@@ -33,8 +34,8 @@ function showMiddleLevel() {
 
 function nextLevel() {
     document.getElementById('next-level').addEventListener('mousedown', () => {
-        infobar.classList.remove('hide');
-        infobar2.classList.remove('hide');
+        // infobar.classList.remove('hide');
+        // infobar2.classList.remove('hide');
         container.classList.remove('hide');
         buttonsContMiddleLevel.classList.add('hide');
         ready = true
@@ -48,6 +49,7 @@ function settings() {
         setSettingsReady(false);
     });
 }
+
 function saveSettings() {
     document.getElementById('save-settings').addEventListener('mousedown', () => {
         playerName = document.getElementById('player-name').value;
@@ -57,31 +59,46 @@ function saveSettings() {
         buttonsCont.classList.remove('hide');
     });
 }
+
 function credits() {
     document.getElementById('credits').addEventListener('mousedown', () => {
         buttonsCont.classList.add('hide');
         creditsCont.classList.remove('hide');
     });
 }
+
 function gameover() {
-        console.log('gameover');
-        infobar.classList.add('hide');
-        infobar2.classList.add('hide');
+        // infobar.classList.add('hide');
+        // infobar2.classList.add('hide');
         container.classList.add('hide');
         gameoverCont.classList.remove('hide');
-        // setSettingsReady(false);
-        // setReady(false);
 }
+
+function finish() {
+        // infobar.classList.add('hide');
+        // infobar2.classList.add('hide');
+        container.classList.add('hide');
+        finishCont.classList.remove('hide');
+}
+
 function tryAgain() {
     document.getElementById('try-again').addEventListener('mousedown', () => {
-        infobar.classList.remove('hide');
-        infobar2.classList.remove('hide');
+        // infobar.classList.remove('hide');
+        // infobar2.classList.remove('hide');
         container.classList.remove('hide');
         gameoverCont.classList.add('hide');
-        // setSettingsReady(true);
-        // setReady(true);
     });
 }
+
+function tryAgain2() {
+    document.getElementById('try-again2').addEventListener('mousedown', () => {
+        // infobar.classList.remove('hide');
+        // infobar2.classList.remove('hide');
+        container.classList.remove('hide');
+        finishCont.classList.add('hide');
+    });
+}
+
 function backToMainMenu() {
     document.getElementById('back-to-main-menu').addEventListener('mousedown', () => {
         buttonsCont.classList.remove('hide');
@@ -95,12 +112,25 @@ function backToMainMenu2() {
         gameoverCont.classList.add('hide');
     });
 }
+function backToMainMenu3() {
+    document.getElementById('back-to-main-menu3').addEventListener('mousedown', () => {
+        buttonsCont.classList.remove('hide');
+        finishCont.classList.add('hide');
+    });
+}
 
 function setReady(value) {
     return ready = value;
 }
 function setSettingsReady(value) {
     return settingsReady = value;
+}
+
+function getSettingsReady (){
+    return settingsReady;
+}
+function getReady (){
+    return ready;
 }
 export {
     startGame,
@@ -113,9 +143,14 @@ export {
     credits,
     backToMainMenu,
     backToMainMenu2,
+    backToMainMenu3,
     settingsReady,
     numberOfLevels,
     setSettingsReady,
     gameover,
-    tryAgain
+    tryAgain,
+    tryAgain2,
+    getSettingsReady,
+    getReady,
+    finish
 };
