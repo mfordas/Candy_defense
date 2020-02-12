@@ -1,4 +1,3 @@
-
 class Points {
     constructor (points){
         this.points = 0;
@@ -11,7 +10,6 @@ class Points {
     resetPoints(){
         return this.points = 0;
     }
-
 
 }
 

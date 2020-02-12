@@ -1,9 +1,3 @@
-import {
-    cw,
-    ch,
-    ctx
-} from './main';
-
 let timeCount;
 
 class Levels {
@@ -12,8 +6,6 @@ class Levels {
             this.time = time;
             this.ready = ready;
     }
-
-    
 
     generateLevels(numberOfLevels){
         let levelArray = [];

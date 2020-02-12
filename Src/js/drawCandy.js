@@ -1,4 +1,4 @@
-import {cw, ch, ctx} from './main';
+import {ctx} from './main';
 import candySrc from '../img/candy/candy.png';
 
 let candy = new Image();

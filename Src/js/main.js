@@ -151,9 +151,6 @@ function infobarDataUpdate() {
   document.getElementById('time-to-level-end').innerHTML = `${levels.time}`;
 }
 
-
-
-
 // Menu area
 const button = document.getElementById('next-level');
 const startButton = document.getElementById('start');

@@ -1,6 +1,5 @@
-/*This function will load script and call the callback once the script has loaded*/
 function loadScriptAsync() {
-    let script = document.createElement('script');
+    const script = document.createElement('script');
     script.onload = function () {
         window.dataLayer = window.dataLayer || [];
       
