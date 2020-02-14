@@ -1,8 +1,7 @@
-import {
-    ctx
-} from './main';
+// import {
+//     ctx
+// } from './main';
 import bloodSrc from '../img/blood/blood.png';
-import 'jest-canvas-mock';
 
 let blood = new Image();
 blood.src = bloodSrc;
@@ -14,8 +13,8 @@ class Blood {
         
     }
 
-    drawBlood() {
-        ctx.drawImage(blood, this.x-(blood.width*0.1/2), this.y-(blood.height*0.1/2), blood.width*0.1, blood.height*0.1);
+    drawBlood(canvasElement) {
+        canvasElement.drawImage(blood, this.x-(blood.width*0.1/2), this.y-(blood.height*0.1/2), blood.width*0.1, blood.height*0.1);
     }
 
     setX(value){

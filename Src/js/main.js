@@ -28,8 +28,8 @@ levelsArray = levels.generateLevels(menu.numberOfLevels);
 //Continuous game play
 function gameLoop() {
   ctx.clearRect(0, 0, cw, ch);
-  candy.drawCandy();
-  blood.drawBlood();
+  candy.drawCandy(ctx);
+  blood.drawBlood(ctx);
   drawBugs();
   collisionBug();
   infobarDataUpdate();
@@ -87,7 +87,7 @@ function createArmyOfBugs() {
   bugsCreate = setInterval(() => {
     for (let i = 0; i < amount; i++) {
       let bug = new Bug(0, 0);
-      bug.setPosition();
+      bug.setPosition(ch, cw);
       bug.setVelocityVector(candy.x, candy.y);
       bugsArray.push(bug);
     }
@@ -126,7 +126,7 @@ function collisionBug() {
 // Draw bugs
 function drawBugs() {
   bugsArray.forEach(bug => {
-    bug.drawBug();
+    bug.drawBug(ctx);
     bug.moveOfBug();
     blood.setY();
     blood.setX();
@@ -136,7 +136,7 @@ function drawBugs() {
 
 function nextLevel() {
   ctx.clearRect(0, 0, cw, ch);
-  candy.drawCandy();
+  candy.drawCandy(ctx);
   createArmyOfBugs();
   levels.countLevelTime();
   requestAnimationFrame(gameLoop);
@@ -216,6 +216,10 @@ document.getElementById('save-settings').addEventListener('mousedown', () => {
     levelsArray = [...levels.generateLevels(menu.numberOfLevels)];
   }
 });
+
+export const sum = (a,b) => {
+  return a+b;
+}
 
 google.loadScriptAsync();
 requestAnimationFrame(gameLoop);

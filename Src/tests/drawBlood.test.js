@@ -1,29 +1,15 @@
 import Blood from '../js/drawBlood';
-import './node_modules/jest-canvas-mock';
 
-beforeEach(() => {
-    const createElement = document.createElement.bind(document);
-    document.createElement = (tagName) => {
-        if (tagName === 'canvas') {
-            return {
-                getContext: () => ({}),
-                measureText: () => ({})
-            };
-        }
-        return createElement(tagName);
-    };
-});
 
 const newBlood = new Blood(100, 100);
-// const events = ctx.__getEvents();
 
-test ('Constructor test', () => {
+test('Constructor test', () => {
     expect(newBlood).toEqual({
         x: 100,
         y: 100
     })
 });
 
-// test('Drawing blood', () => {
-//     expect(events).toMatchSnapshot();
-// });
+test('Set x position', () => expect(newBlood.setX(50)).toBe(50));
+
+test('Set y position', () => expect(newBlood.setY(150)).toBe(150));

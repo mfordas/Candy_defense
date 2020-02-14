@@ -1,4 +1,3 @@
-import {ctx} from './main';
 import candySrc from '../img/candy/candy.png';
 
 let candy = new Image();
@@ -9,12 +8,10 @@ class Candy {
         this.x = x;
         this.y = y;
         this.radius = 50;
-        this.vx = 1;
-        this.vy = 5;
     }
 
-    drawCandy(){
-        ctx.drawImage(candy, this.x-(candy.width*0.25/2), this.y-(candy.height*0.25/2), candy.width*0.25, candy.height*0.25);
+    drawCandy(canvasElement){
+        canvasElement.drawImage(candy, this.x-(candy.width*0.25/2), this.y-(candy.height*0.25/2), candy.width*0.25, candy.height*0.25);
     }
 
 
