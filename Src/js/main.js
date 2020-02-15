@@ -58,6 +58,7 @@ function gameLoop() {
       levels.setLevelTime(levelsArray[index].time);
       levels.setLevelNumber(levelsArray[index].levelNumber);
       health.healthReload();
+      health.healthBarHandler();
       points.resetPoints();
       menu.finish();
     }
@@ -74,6 +75,7 @@ function gameLoop() {
     levels.setLevelNumber(levelsArray[index].levelNumber);
     menu.gameover();
     health.healthReload();
+    health.healthBarHandler();
     menu.tryAgain();
     return;
   }
@@ -119,6 +121,7 @@ function collisionBug() {
     if (bug.radius === 0) {
       bugsArray.splice(bugsArray.indexOf(bug), 1);
       health.decreaseHealth();
+      health.healthBarHandler();
     }
   });
 }
@@ -154,8 +157,7 @@ function infobarDataUpdate() {
 // Menu area
 const button = document.getElementById('next-level');
 const startButton = document.getElementById('start');
-const tryAgain = document.getElementById('try-again');
-const tryAgain2 = document.getElementById('try-again2');
+const tryAgainButtonsCollection = document.getElementsByClassName('try-again');
 
 canvas.addEventListener('mousedown', catchBug);
 canvas.addEventListener('click', catchBug);
@@ -179,7 +181,8 @@ startButton.addEventListener('mousedown', () => {
   }
 });
 
-tryAgain.addEventListener('mousedown', () => {
+for (let tryAgainButton of tryAgainButtonsCollection){
+  tryAgainButton.addEventListener('mousedown', () => {
   levels.setLevelReady(true); {
     if (levels.ready === true) {
       nextLevel();
@@ -187,16 +190,8 @@ tryAgain.addEventListener('mousedown', () => {
       return;
     }
   }
-});
-tryAgain2.addEventListener('mousedown', () => {
-  levels.setLevelReady(true); {
-    if (levels.ready === true) {
-      nextLevel();
-    } else {
-      return;
-    }
-  }
-});
+})};
+
 
 if (menu.ready === false) {
   menu.startGame();
@@ -204,10 +199,7 @@ if (menu.ready === false) {
   menu.settings();
   menu.credits();
   menu.tryAgain();
-  menu.tryAgain2();
   menu.backToMainMenu();
-  menu.backToMainMenu2();
-  menu.backToMainMenu3();
   menu.saveSettings();
 }
 

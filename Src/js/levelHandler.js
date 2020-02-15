@@ -1,10 +1,9 @@
-let timeCount;
-
 class Levels {
     constructor (levelNumber, time, ready){
             this.levelNumber =levelNumber,
             this.time = time;
             this.ready = ready;
+            this.intervalCountLevelTime = null;
     }
 
     generateLevels(numberOfLevels){
@@ -26,20 +25,16 @@ class Levels {
         return this.ready = value;
     }
 
-    countLevelTime(){
-        if(this.time > 0){
-        setInterval(() => this.time = --this.time, 1000);
-        return this.time;} else {return true}
-    }
-
     countLevelTime() {
-        timeCount = setInterval(() => {
+        this.intervalCountLevelTime = setInterval(() => {
           this.setLevelTime(--this.time);
         }, 1000);
+
+        return this.time;
       }
 
       stopCountLevelTime (){
-      clearInterval(timeCount);
+      clearInterval(this.intervalCountLevelTime);
     }
 
 }
