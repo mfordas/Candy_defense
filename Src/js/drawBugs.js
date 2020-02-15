@@ -1,8 +1,3 @@
-import {
-    cw,
-    ch,
-    ctx
-} from './main';
 import bugSrc from '../img/insects/ant_2.png';
 
 let bug = new Image();
@@ -16,27 +11,53 @@ class Bug {
         this.vx = 0;
         this.vy = 0;
         this.angle = 0;
-        this.color = `hsl(${this.getRandomNumber(0,360)}, 100%, 50%)`;
     }
 
-    drawBug() {
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.rotate(this.setRotationAngle());
-        ctx.translate(-this.x, -this.y);
-        ctx.drawImage(bug, this.x-(bug.width*0.1/2), this.y-(bug.height*0.1/2), bug.width*0.1, bug.height*0.1);
-        ctx.restore();
+    setX(value){
+        return this.x = value;
     }
 
-    getRandomXBugPosition(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return this.x = Math.floor(Math.random() * (max - min)) + min;
+    setY(value){
+        return this.y = value;
     }
-    getRandomYBugPosition(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return this.y = Math.floor(Math.random() * (max - min)) + min;
+
+    setVX(value){
+        return this.vx = value;
+    }
+
+    setVY(value){
+        return this.vy = value;
+    }
+
+    setAngle(value){
+        return this.angle = value;
+    }
+
+    getX(){
+        return this.x;
+    }
+
+    getY(){
+        return this.y;
+    }
+    getVX(){
+        return this.vx;
+    }
+
+    getVY(){
+        return this.vy;
+    }
+    getAngle(){
+        return this.angle;
+    }
+
+    drawBug(canvasElement) {
+        canvasElement.save();
+        canvasElement.translate(this.x, this.y);
+        canvasElement.rotate(this.setRotationAngle());
+        canvasElement.translate(-this.x, -this.y);
+        canvasElement.drawImage(bug, this.x-(bug.width*0.1/2), this.y-(bug.height*0.1/2), bug.width*0.1, bug.height*0.1);
+        canvasElement.restore();
     }
 
     getRandomNumber(min, max) {
@@ -46,37 +67,36 @@ class Bug {
     }
 
 
-    setPosition() {
-        if (this.getRandomNumber(0, 10000) % 5 === 0 || this.getRandomNumber(0, 10000) % 3 === 0 || this.getRandomNumber(0, 10000) % 4 === 0 || this.getRandomNumber(0, 10000) % 2 === 0 || this.getRandomNumber(0, 10000) % 8 === 0) {
-            if (this.getRandomNumber(0, 10000) % 2 === 0) {
-                this.getRandomXBugPosition(0, cw);
+    setPosition(canvasElementHeight, canvasElementWidth) {
+        if (this.getRandomNumber(0, 100000) % 5 === 0 || this.getRandomNumber(0, 100000) % 3 === 0 || this.getRandomNumber(0, 100000) % 4 === 0 || this.getRandomNumber(0, 100000) % 2 === 0 || this.getRandomNumber(0, 100000) % 8 === 0) {
+            if (this.getRandomNumber(0, 100000) % 2 === 0) {
+                this.setX(this.getRandomNumber(0, canvasElementWidth));
             }
-            if (this.getRandomNumber(0, 10000) % 2 !== 0) {
-                this.y = ch;
-                this.getRandomXBugPosition(0, cw);
+            if (this.getRandomNumber(0, 100000) % 2 !== 0) {
+                this.y = canvasElementHeight;
+                this.setX(this.getRandomNumber(0, canvasElementWidth));
             }
         }
-        if (this.getRandomNumber(0, 10000) % 7 > 2 && this.getRandomNumber(0, 10000) % 7 !== 0) {
+        if (this.getRandomNumber(0, 100000) % 7 > 2 && this.getRandomNumber(0, 100000) % 7 !== 0) {
             this.x = 0;
-            this.getRandomYBugPosition(0, ch);
+            this.setY(this.getRandomNumber(0, canvasElementHeight));
         }
-        if (this.getRandomNumber(0, 10000) % 7 <= 2 && this.getRandomNumber(0, 10000) % 7 !== 0) {
-            this.x = cw;
-            this.getRandomYBugPosition(0, ch);
+        if (this.getRandomNumber(0, 100000) % 7 <= 2 && this.getRandomNumber(0, 100000) % 7 !== 0) {
+            this.x = canvasElementWidth;
+            this.setY(this.getRandomNumber(0, canvasElementHeight));
         }
 
 
     }
 
     moveOfBug() {
-        this.x += (this.vx);
-        this.y += this.vy;
-
+        this.setX(this.x += this.vx);
+        this.setY(this.y += this.vy);
     }
 
     deleteBug(x, y, r) {
         if (Math.sqrt((x - this.x) ** 2 + (y - this.y) ** 2) <= (this.radius + r)) {
-            this.radius = 0;
+            return this.radius = 0;
         }
     }
 

@@ -2,7 +2,7 @@ export const canvas = document.querySelector('#draw');
 export const ctx = canvas.getContext('2d');
 export const cw = canvas.width = window.innerWidth - 5;
 export const ch = canvas.height = window.innerHeight - 55;
-
+import '../css/main.css';
 import Candy from './drawCandy';
 import Bug from './drawBugs';
 import Blood from './drawBlood';
@@ -24,13 +24,12 @@ let bugsArray = [];
 let levelsArray = [];
 
 levelsArray = levels.generateLevels(menu.numberOfLevels);
-console.table(levelsArray);
 
 //Continuous game play
 function gameLoop() {
   ctx.clearRect(0, 0, cw, ch);
-  candy.drawCandy();
-  blood.drawBlood();
+  candy.drawCandy(ctx);
+  blood.drawBlood(ctx);
   drawBugs();
   collisionBug();
   infobarDataUpdate();
@@ -59,6 +58,7 @@ function gameLoop() {
       levels.setLevelTime(levelsArray[index].time);
       levels.setLevelNumber(levelsArray[index].levelNumber);
       health.healthReload();
+      health.healthBarHandler();
       points.resetPoints();
       menu.finish();
     }
@@ -75,6 +75,7 @@ function gameLoop() {
     levels.setLevelNumber(levelsArray[index].levelNumber);
     menu.gameover();
     health.healthReload();
+    health.healthBarHandler();
     menu.tryAgain();
     return;
   }
@@ -88,7 +89,7 @@ function createArmyOfBugs() {
   bugsCreate = setInterval(() => {
     for (let i = 0; i < amount; i++) {
       let bug = new Bug(0, 0);
-      bug.setPosition();
+      bug.setPosition(ch, cw);
       bug.setVelocityVector(candy.x, candy.y);
       bugsArray.push(bug);
     }
@@ -120,6 +121,7 @@ function collisionBug() {
     if (bug.radius === 0) {
       bugsArray.splice(bugsArray.indexOf(bug), 1);
       health.decreaseHealth();
+      health.healthBarHandler();
     }
   });
 }
@@ -127,7 +129,7 @@ function collisionBug() {
 // Draw bugs
 function drawBugs() {
   bugsArray.forEach(bug => {
-    bug.drawBug();
+    bug.drawBug(ctx);
     bug.moveOfBug();
     blood.setY();
     blood.setX();
@@ -137,7 +139,7 @@ function drawBugs() {
 
 function nextLevel() {
   ctx.clearRect(0, 0, cw, ch);
-  candy.drawCandy();
+  candy.drawCandy(ctx);
   createArmyOfBugs();
   levels.countLevelTime();
   requestAnimationFrame(gameLoop);
@@ -152,14 +154,10 @@ function infobarDataUpdate() {
   document.getElementById('time-to-level-end').innerHTML = `${levels.time}`;
 }
 
-
-
-
 // Menu area
 const button = document.getElementById('next-level');
 const startButton = document.getElementById('start');
-const tryAgain = document.getElementById('try-again');
-const tryAgain2 = document.getElementById('try-again2');
+const tryAgainButtonsCollection = document.getElementsByClassName('try-again');
 
 canvas.addEventListener('mousedown', catchBug);
 canvas.addEventListener('click', catchBug);
@@ -183,7 +181,8 @@ startButton.addEventListener('mousedown', () => {
   }
 });
 
-tryAgain.addEventListener('mousedown', () => {
+for (let tryAgainButton of tryAgainButtonsCollection){
+  tryAgainButton.addEventListener('mousedown', () => {
   levels.setLevelReady(true); {
     if (levels.ready === true) {
       nextLevel();
@@ -191,16 +190,8 @@ tryAgain.addEventListener('mousedown', () => {
       return;
     }
   }
-});
-tryAgain2.addEventListener('mousedown', () => {
-  levels.setLevelReady(true); {
-    if (levels.ready === true) {
-      nextLevel();
-    } else {
-      return;
-    }
-  }
-});
+})};
+
 
 if (menu.ready === false) {
   menu.startGame();
@@ -208,19 +199,19 @@ if (menu.ready === false) {
   menu.settings();
   menu.credits();
   menu.tryAgain();
-  menu.tryAgain2();
   menu.backToMainMenu();
-  menu.backToMainMenu2();
-  menu.backToMainMenu3();
   menu.saveSettings();
 }
 
 document.getElementById('save-settings').addEventListener('mousedown', () => {
   if (menu.getSettingsReady() === true) {
     levelsArray = [...levels.generateLevels(menu.numberOfLevels)];
-    console.table(levelsArray);
   }
 });
+
+export const sum = (a,b) => {
+  return a+b;
+}
 
 google.loadScriptAsync();
 requestAnimationFrame(gameLoop);

@@ -74,44 +74,27 @@ function finish() {
 }
 
 function tryAgain() {
-    document.getElementById('try-again').addEventListener('mousedown', () => {
+    const tryAgainButtonsCollection = document.getElementsByClassName('try-again');
+    for (let tryAgainButton of tryAgainButtonsCollection){
+        tryAgainButton.addEventListener('mousedown', () => {
         container.classList.remove('hide');
         gameoverCont.classList.add('hide');
-    });
+    });}
 }
 
-function tryAgain2() {
-    document.getElementById('try-again2').addEventListener('mousedown', () => {
-        container.classList.remove('hide');
-        finishCont.classList.add('hide');
-    });
-}
 
 function backToMainMenu() {
-    document.getElementById('back-to-main-menu').addEventListener('mousedown', () => {
+    const backButtonsCollection = document.getElementsByClassName('back-to-main-menu')
+    for (let backButton of backButtonsCollection){
+    backButton.addEventListener('mousedown', () => {
         infobar.classList.add('hide');
         infobar2.classList.add('hide');
         buttonsCont.classList.remove('hide');
         creditsCont.classList.add('hide');
         gameoverCont.classList.add('hide');
-    });
-}
-function backToMainMenu2() {
-    document.getElementById('back-to-main-menu2').addEventListener('mousedown', () => {
-        infobar.classList.add('hide');
-        infobar2.classList.add('hide');
-        buttonsCont.classList.remove('hide');
-        gameoverCont.classList.add('hide');
-    });
-}
-function backToMainMenu3() {
-    document.getElementById('back-to-main-menu3').addEventListener('mousedown', () => {
-        infobar.classList.add('hide');
-        infobar2.classList.add('hide');
-        buttonsCont.classList.remove('hide');
-        finishCont.classList.add('hide');
-    });
-}
+    })}
+};
+
 
 function setReady(value) {
     return ready = value;
@@ -136,14 +119,11 @@ export {
     saveSettings,
     credits,
     backToMainMenu,
-    backToMainMenu2,
-    backToMainMenu3,
     settingsReady,
     numberOfLevels,
     setSettingsReady,
     gameover,
     tryAgain,
-    tryAgain2,
     getSettingsReady,
     getReady,
     finish

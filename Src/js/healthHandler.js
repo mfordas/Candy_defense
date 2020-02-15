@@ -3,18 +3,11 @@ class Health {
         this.health = health;
     }
 
-    
-
     healthReload(){
-        this.health = 100;
-        const healthBar = document.getElementById('health-level');
-        healthBar.style.width = `${this.health}%`;
-        healthBar.style.backgroundColor = `#02e30e`;
-        return this.health;
+        return this.health = 100;
     }
 
-    
-    decreaseHealth(){
+    healthBarHandler(){
         const healthBar = document.getElementById('health-level');
         healthBar.style.width = `${this.health}%`;
         if (this.health >35){
@@ -22,6 +15,9 @@ class Health {
         } else {
             healthBar.style.backgroundColor = `#f0051c`;
         }
+    }
+    
+    decreaseHealth(){
         return this.health = (this.health-5);
     }
 
