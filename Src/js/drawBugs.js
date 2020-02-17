@@ -102,8 +102,10 @@ class Bug {
         }
     }
 
-    setVelocityVector(x, y) {
-        let valueOfVelocity = 3.5;
+    setVelocityVector(x, y, canvasElementWidth, canvasElementHeight) {
+        let valueOfVelocity;
+        if(canvasElementWidth <= 480 || canvasElementHeight <= 480){
+        valueOfVelocity = 2.1;} else {valueOfVelocity = 4;}
 
         // Basic values of X speed and Y speed
         let basicYVelocity = (y - this.y);
@@ -116,7 +118,6 @@ class Bug {
 
         basicXVelocity > 0 ? this.vx=this.vx : this.vx=-this.vx;
         basicYVelocity > 0 ? this.vy=this.vy : this.vy=-this.vy;
-
     }
 
     setRotationAngle(){

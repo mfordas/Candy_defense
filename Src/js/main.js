@@ -90,7 +90,7 @@ function createArmyOfBugs() {
     for (let i = 0; i < amount; i++) {
       let bug = new Bug(0, 0);
       bug.setPosition(ch, cw);
-      bug.setVelocityVector(candy.x, candy.y);
+      bug.setVelocityVector(candy.x, candy.y, cw, ch);
       bugsArray.push(bug);
     }
   }, 1300 - (levels.levelNumber * 100));
