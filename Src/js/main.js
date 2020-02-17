@@ -28,8 +28,8 @@ levelsArray = levels.generateLevels(menu.numberOfLevels);
 //Continuous game play
 function gameLoop() {
   ctx.clearRect(0, 0, cw, ch);
-  candy.drawCandy(ctx);
-  blood.drawBlood(ctx);
+  candy.drawCandy(ctx, cw, ch);
+  blood.drawBlood(ctx, cw, ch);
   drawBugs();
   collisionBug();
   infobarDataUpdate();
@@ -129,7 +129,7 @@ function collisionBug() {
 // Draw bugs
 function drawBugs() {
   bugsArray.forEach(bug => {
-    bug.drawBug(ctx);
+    bug.drawBug(ctx, cw, ch);
     bug.moveOfBug();
     blood.setY();
     blood.setX();

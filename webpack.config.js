@@ -47,7 +47,7 @@ module.exports = {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        filename: 'index.html',
+        filename: 'Candy_defense.html',
         template: './src/index.html'
       }),
       new ExtractTextPlugin({

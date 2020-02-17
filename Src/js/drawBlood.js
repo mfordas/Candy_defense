@@ -1,6 +1,3 @@
-// import {
-//     ctx
-// } from './main';
 import bloodSrc from '../img/blood/blood.png';
 
 let blood = new Image();
@@ -13,8 +10,11 @@ class Blood {
         
     }
 
-    drawBlood(canvasElement) {
-        canvasElement.drawImage(blood, this.x-(blood.width*0.1/2), this.y-(blood.height*0.1/2), blood.width*0.1, blood.height*0.1);
+    drawBlood(canvasElement, canvasElementWidth, canvasElementHeight) {
+        if(canvasElementWidth <= 480 || canvasElementHeight <= 480){
+            console.log('small screen');
+        canvasElement.drawImage(blood, this.x-(blood.width*0.07/2), this.y-(blood.height*0.07/2), blood.width*0.07, blood.height*0.07);}
+        else {console.log('big screen'); canvasElement.drawImage(blood, this.x-(blood.width*0.1/2), this.y-(blood.height*0.1/2), blood.width*0.1, blood.height*0.1);}
     }
 
     setX(value){

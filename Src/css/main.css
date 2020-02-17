@@ -69,6 +69,11 @@ body, input{
   justify-content:center;
 }
 
+#buttons-container-middle-level{
+  width:100vw;
+  height: calc(100vh - 55px);
+}
+
 .logo > span:nth-child(1n){
   font-size: 3rem;
   color: #f5429e;

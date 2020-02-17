@@ -51,12 +51,14 @@ class Bug {
         return this.angle;
     }
 
-    drawBug(canvasElement) {
+    drawBug(canvasElement, canvasElementWidth, canvasElementHeight) {
         canvasElement.save();
         canvasElement.translate(this.x, this.y);
         canvasElement.rotate(this.setRotationAngle());
         canvasElement.translate(-this.x, -this.y);
-        canvasElement.drawImage(bug, this.x-(bug.width*0.1/2), this.y-(bug.height*0.1/2), bug.width*0.1, bug.height*0.1);
+        if(canvasElementWidth <= 480 || canvasElementHeight <= 480){
+        canvasElement.drawImage(bug, this.x-(bug.width*0.07/2), this.y-(bug.height*0.07/2), bug.width*0.07, bug.height*0.07);}
+        else {canvasElement.drawImage(bug, this.x-(bug.width*0.1/2), this.y-(bug.height*0.1/2), bug.width*0.1, bug.height*0.1);}
         canvasElement.restore();
     }
 
